@@ -1,0 +1,27 @@
+<% layout("./layouts/layout.eta") %>
+
+<% if(it.is_question) { %>
+
+    <h2>This topic has no questions yet :( </h2>
+
+<% } else if(!it.is_question && it.is_correct) { %>
+
+    <h2 class="text-success">Correct!</h2>
+    <br/>
+
+    <form action="/quiz/<%= it.topic_id %>"> <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Next question"/> </form> 
+
+<% } else { %>
+
+    <h2 class="text-warning">Incorrect!</h2>
+
+    <% it.correct_answers.forEach((answer) => { %>
+
+        <h3>The correct option was <u><%= answer.option_text%></u></h3>
+
+    <% }); %>
+    <br/>
+
+    <form action="/quiz/<%= it.topic_id %>"> <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Next question"/> </form> 
+
+<% }; %>

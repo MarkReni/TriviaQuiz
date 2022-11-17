@@ -1,0 +1,70 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Welcome to the topic page!</h1>
+<h3>Here you can:</h3>
+<ul>
+    <h4><li> add and delete topics (admin status required)</li> </h4>
+    <h4><li> add and delete questions for topics</li> </h4>
+    <h4><li> add and delete answer-options for questions</li> </h4>
+</ul>
+<br/>
+
+<% if(it.user.admin) { %>
+
+    <form method="POST" action="/topics">
+        <label for="topic">Add a topic:</label>
+        <input type="text" id="topic" name="name" placeholder="<%= it.validationErrors ? it.name : "" %>"/>
+        <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Submit topic"/>
+    </form>
+
+    <ul>
+        <% if (it.validationErrors) { %>
+            <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+                <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+                    <li><%= err %></li>
+                <% }); %>
+            <% }); %>
+        <% }; %>
+    </ul>
+    <br>
+<% }; %>
+
+
+
+<h2>Available topics</h2>
+
+
+<% if(it.numTopics === 0) { %>
+
+    <h4 class="text-secondary">No available topics yet</h4> 
+
+<% } else if(it.user.admin) { %>
+
+        <% it.topics.forEach((topic) => { %> 
+            <fieldset class="sm-12 shadow shadow-hover border-dotted">
+                <div class="row flex-edges">
+                    <div class="lg-10 col">
+                        <h4><a href="/topics/<%= topic.id %>"><%= topic.name %> </a></h4>
+                    </div>
+                    <div class="lg-2 col">
+                        <% if(it.user.admin) { %>
+                            <form method="POST" action="/topics/<%= topic.id %>/delete"> 
+                                <input class="border border-danger shadow shadow-hover background-danger" type="submit" value="Delete"/> 
+                            </form>
+                        <% }; %>
+                    </div>
+                </div>
+            </fieldset>
+            <br/>
+        <% }); %>
+
+<% } else { %>
+
+    <% it.topics.forEach((topic) => { %> 
+        <fieldset class="sm-12 shadow shadow-hover border-dotted">
+            <h4><a href="/topics/<%= topic.id %>"><%= topic.name %> </a></h4>
+        </fieldset>
+        <br/>
+    <%});%>
+
+<% }; %>

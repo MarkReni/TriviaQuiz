@@ -1,0 +1,30 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Multiple-choice trivia</h1>
+
+<h2>Description</h2>
+
+<h4>
+Looking for multiple choice trivia questions and answers?<br>
+This fun quiz covers any topics created by our community members ranging from music, geography, history, movies and many more !<br><br>
+All registered users can add questions to topics and add answer options to questions.<br><br>
+Note that adding a topic requires an administrator level status.<br>
+Please contact our community members to become an administrator. 
+</h4>
+
+
+<h2>Statistics</h2>
+
+<h4>Total number of topics: <span class="text-secondary"><%= it.numTopics %></span></h4>
+<h4>Total number of questions: <span class="text-warning"><%= it.numQuestions %></span></h4>
+<h4>Total number of answers: <span class="text-success"><%= it.numResponses %></span></h4>
+
+</br>
+</br>
+</br>
+<a href="/auth/register">Not yet registered? Register here.</a>
+
+</br>
+</br>
+
+<a href="/auth/login">Already registered? Login here.</a>

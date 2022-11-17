@@ -1,0 +1,37 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Question:</h1>
+
+<h2> <%= it.question %> </h2>
+<br/>
+
+<h3>Answer options</h3>
+
+<% if(it.numAnswers === 0 && it.is_one === 0) { %>
+
+    <h3>No answer options</h3> 
+
+    <form action="/quiz/<%= it.topic_id %>"> <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Next question"/> </form> 
+
+<% } else if(it.numAnswers === 0 && it.is_one === 1) {%>
+
+    <h3>No answer options</h3> 
+
+    <form action="/quiz/<%= it.topic_id %>"> 
+        <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Next question"/>
+        <h6>Please note that there are no other questions for this topic! This same page will be displayed when "Next question" button is pressed.</h6>
+        </form> 
+
+<% } else { %>
+
+    <ol>
+        <% it.answers.forEach((answer) => { %> 
+            <li> 
+                <%= answer.option_text %>  
+                <form method="POST" action="/quiz/<%= it.topic_id %>/questions/<%= it.question_id %>/options/<%= answer.id %>"> <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Choose"/> </form> 
+            </li>
+            <br/>
+        <% }); %>
+    </ol>
+
+<% }; %>

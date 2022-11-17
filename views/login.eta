@@ -1,0 +1,24 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Login form</h1>
+
+<form method="POST" action="/auth/login">
+  <label for="emailLog">Email:</label></br>
+  <input type="email" id="emailLog" name="email" placeholder='<%= it.email ? it.email : "" %>'/><br/>
+  <label for="passwordLog">Password:</label></br>
+  <input type="password" id="passwordLog" name="password" /><br/>
+  <input class="border border-secondary shadow shadow-hover background-secondary" type="submit" value="Login" />
+</form>
+
+<ul>
+    <% if (it.validationErrors) { %>
+        <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+            <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+                <li><%= err %></li>
+            <% }); %>
+        <% }); %>
+    <% }; %>
+</ul>
+<br/>
+
+<a href="/auth/register">Not yet registered? Register here.</a>

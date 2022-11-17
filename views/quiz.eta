@@ -1,0 +1,23 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Welcome to the quiz!</h1>
+<h4>Select a topic <a href="#below" class="text-warning">below</a> of which question you would like to answer next</h4>
+
+<br/>
+
+<h2>Available topics</h2>
+
+<% if(it.numTopics === 0) { %>
+
+    <h3>No available topics yet</h3> 
+
+<% } else { %>
+
+    <% it.topics.forEach((topic) => { %> 
+        <fieldset class="sm-12 shadow shadow-hover border-dotted" id="below">
+            <h4><a href="/quiz/<%= topic.id %>"><%= topic.name %> </a></h4>
+        </fieldset>
+        <br/>
+    <%});%>
+
+<% }; %>
